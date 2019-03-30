@@ -25,9 +25,10 @@ import okhttp3.Response;
 public class MySQLHelper {
 
     private Context mContext;
-    private String API_READ_URL = "http://gestorapi.hlserver.ga/read.php";
-    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private OkHttpClient client = new OkHttpClient();
+    public String API_READ_URL = "http://gestorapi.hlserver.ga/read.php";
+    public String API_LOGIN_URL = "http://gestorapi.hlserver.ga/login.php";
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public OkHttpClient client = new OkHttpClient();
 
 
     public MySQLHelper(Context context) {
@@ -69,6 +70,15 @@ public class MySQLHelper {
                 {
                     final String myResponse = response.body().string();
 
+                    TextView mTextView = ((Activity)mContext).findViewById(R.id.textView2);
+
+                    Runnable run = new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    };
+                new Thread(run).start();
                 }
             }
         });
