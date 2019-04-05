@@ -57,7 +57,11 @@ public class LoginActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doLogin();
+                if(validateInputs())
+                {
+                    doLogin();
+                }
+
             }
         });
     }
@@ -109,5 +113,18 @@ public class LoginActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
         finish();
+    }
+    private boolean validateInputs() {
+        if("".equals(email_input.getText().toString())){
+            email_input.setError("Username cannot be empty");
+            email_input.requestFocus();
+            return false;
+        }
+        if("".equals(password_input.getText().toString())){
+            password_input.setError("Password cannot be empty");
+            password_input.requestFocus();
+            return false;
+        }
+        return true;
     }
 }
