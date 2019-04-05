@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         email_input = (AutoCompleteTextView) findViewById(R.id.email);
         password_input = (TextInputEditText) findViewById(R.id.password);
-        mTextView = (TextView) findViewById(R.id.textView2);
         login_btn = (Button) findViewById(R.id.login_btn);
 
         login_btn.setOnClickListener(new View.OnClickListener() {
