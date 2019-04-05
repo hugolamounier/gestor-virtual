@@ -31,32 +31,42 @@ public class CadastroActivity extends AppCompatActivity {
 
 
 
-    private boolean emptyInput(){ //Confere se não existe nenhum campo vazio
+    private void emptyInput(){ //Confere se não existe nenhum campo vazio
         if ("".equals(emailEt.getText().toString())){
             emailEt.setError("E-mail não pode ser vazio.");
             emailEt.requestFocus();
-            return false;
+
         }
         if ("".equals(emailConEt.getText().toString())){
             emailConEt.setError("E-mail não pode ser vazio.");
             emailConEt.requestFocus();
-            return false;
+
         }
         if ("".equals(passwordEt.getText().toString())){
             passwordEt.setError("Senha não pode ser vazia.");
             passwordEt.requestFocus();
-            return false;
+
         }
         if ("".equals(passwordConET.getText().toString())){
             passwordConET.setError("Senha não pode ser vazia.");
             passwordConET.requestFocus();
-            return false;
-        }
-        if(genderRg.getCheckedRadioButtonId()==0){
-            genderError.setError("Selecione um genero");
 
         }
-        return true;
+        if ("".equals(nameET.getText().toString())) {
+            nameET.setError("Nome não pode ser vazio.");
+            nameET.requestFocus();
+
+        }
+        if ("".equals(dateET.getText().toString())) {
+            dateET.setError("Nome não pode ser vazio.");
+            dateET.requestFocus();
+
+        }
+        if(genderRg.getCheckedRadioButtonId()==-1){
+            genderError.setText("Selecione um genero");
+
+        }
+
     }
 
     private void validateInput(){ //Confere se os emails e senhas são compativeis
@@ -81,6 +91,9 @@ public class CadastroActivity extends AppCompatActivity {
         passwordConET = findViewById(R.id.passwordConET);
         nameET = findViewById(R.id.nameET);
         dateET = findViewById(R.id.dateET);
+        BTN = findViewById(R.id.btnSignUp);
+        genderRg =findViewById(R.id.genderRg);
+        genderError = findViewById(R.id.genderError);
         BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
