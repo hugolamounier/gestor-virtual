@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
 
     AutoCompleteTextView email_input;
     TextInputEditText password_input;
-    TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +71,6 @@ public class LoginActivity extends AppCompatActivity {
         String email = email_input.getText().toString();
         // password = Hashing.sha256().hashString(password, Charsets.UTF_8).toString(); // hashing a senha em sha256
 
-        mTextView = (TextView) findViewById(R.id.textView2);
 
         JSONObject request = new JSONObject();
         try{
@@ -116,12 +114,12 @@ public class LoginActivity extends AppCompatActivity {
     }
     private boolean validateInputs() {
         if("".equals(email_input.getText().toString())){
-            email_input.setError("Username cannot be empty");
+            email_input.setError("E-mail não pode ser vazio.");
             email_input.requestFocus();
             return false;
         }
         if("".equals(password_input.getText().toString())){
-            password_input.setError("Password cannot be empty");
+            password_input.setError("Senha não pode ser vazia.");
             password_input.requestFocus();
             return false;
         }
