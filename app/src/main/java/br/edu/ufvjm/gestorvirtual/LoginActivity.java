@@ -1,6 +1,5 @@
 package br.edu.ufvjm.gestorvirtual;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -8,29 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.common.base.Charsets;
-import com.google.common.hash.Hashing;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 
 import br.edu.ufvjm.gestorvirtual.MySQL.MySQLHelper;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 public class LoginActivity extends AppCompatActivity {
 
     MySQLHelper MySQL = new MySQLHelper(this);
-    private Button login_btn;
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_STATUS = "status";
@@ -39,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
 
     AutoCompleteTextView email_input;
     TextInputEditText password_input;
+    Button btnLogin;
+    Button btnSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +43,19 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         email_input = (AutoCompleteTextView) findViewById(R.id.emailTi);
         password_input = (TextInputEditText) findViewById(R.id.passwordTi);
-        login_btn = (Button) findViewById(R.id.login_btn);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
-        login_btn.setOnClickListener(new View.OnClickListener() {
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), CadastroActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(validateInputs())
