@@ -66,7 +66,9 @@ public class LoginActivity extends AppCompatActivity {
 
         String password = password_input.getText().toString();
         String email = email_input.getText().toString();
-        password = Hashing.sha256().hashString(password, Charsets.UTF_8).toString(); // hashing a senha em sha256
+        // password = Hashing.sha256().hashString(password, Charsets.UTF_8).toString(); // hashing a senha em sha256
+
+        mTextView = (TextView) findViewById(R.id.textView2);
 
         JSONObject request = new JSONObject();
         try{
