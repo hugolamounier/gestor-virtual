@@ -1,5 +1,7 @@
 package br.edu.ufvjm.gestorvirtual;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,8 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sessionHandler = new SessionHandler(getApplicationContext());
+        if(sessionHandler.isLoggedIn())
+        {
+            loadMainActivity();
+        }
         setContentView(R.layout.activity_login);
-
         email_input = (AutoCompleteTextView) findViewById(R.id.email);
         password_input = (TextInputEditText) findViewById(R.id.password);
         mTextView = (TextView) findViewById(R.id.textView2);
@@ -52,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 doLogin();
             }
         });
@@ -80,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(response.getInt(KEY_STATUS) == 1)
                     {
                         sessionHandler.loginUser(email);
-                        // mudar para activity inicial do app
+                        loadMainActivity();
                     }else{
                         email_input.setError(response.getString(KEY_MESSAGE));
                         password_input.setError(response.getString(KEY_MESSAGE));
@@ -96,5 +101,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         MySingleton.getInstance(this).addToRequestQueue(jsArrayRequest);
+    }
+
+    private void loadMainActivity()
+    {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }
