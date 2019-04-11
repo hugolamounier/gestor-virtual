@@ -112,7 +112,6 @@ public class LoginActivity extends AppCompatActivity {
     {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
-        finish();
     }
     private boolean validateInputs() {
         if("".equals(email_input.getText().toString())){

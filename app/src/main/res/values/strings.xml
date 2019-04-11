@@ -7,6 +7,7 @@
         <item>Masculino</item>
         <item>Feminino</item>
     </string-array>
+
     //Cadastro
     <string name="C_Email">E-mail</string>
     <string name="C_EmailConfirmation">Confirme seu Email</string>
@@ -16,7 +17,13 @@
     <string name="C_Date">Data de Nascimento</string>
     <string name="C_Masculino">Masculino</string>
     <string name="C_Feminino">Feminino</string>
-    //Cadastro
+    //Fim Cadastro
+
+    //Menu - Main Activity
+    <string name="MA_Account_Sep">Conta</string>
+
+    <string name="MA_Logout">Sair</string>
+    // FIM MENU
 
     <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Password (optional)</string>
