@@ -29,6 +29,12 @@ public class SessionHandler {
         mEditor.commit();
     }
 
+    public String returnLoggedUser()
+    {
+        String email = mPreferences.getString(KEY_EMAIL, "");
+        return email;
+    }
+
     public boolean isLoggedIn() {
         Date currentDate = new Date();
 

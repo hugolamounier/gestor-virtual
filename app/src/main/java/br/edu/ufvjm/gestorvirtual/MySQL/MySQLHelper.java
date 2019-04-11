@@ -27,9 +27,6 @@ public class MySQLHelper {
     private Context mContext;
     public String API_READ_URL = "http://gestorapi.hlserver.ga/read.php";
     public String API_LOGIN_URL = "http://gestorapi.hlserver.ga/login.php";
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    public OkHttpClient client = new OkHttpClient();
-
 
     public MySQLHelper(Context context) {
         this.mContext = context;
