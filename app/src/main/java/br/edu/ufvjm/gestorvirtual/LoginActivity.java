@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText password_input;
     Button btnLogin;
     Button btnSignUp;
+    FrameLayout loadScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         password_input = (TextInputEditText) findViewById(R.id.passwordTi);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
+        loadScreen = (FrameLayout)findViewById(R.id.loadScreen);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void doLogin(){
-
+        loadScreen.setVisibility(View.VISIBLE);
         String password = password_input.getText().toString();
         String email = email_input.getText().toString();
         // password = Hashing.sha256().hashString(password, Charsets.UTF_8).toString(); // hashing a senha em sha256
@@ -89,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 try{
                     if(response.getInt(KEY_STATUS) == 1)
                     {
+                        loadScreen.setVisibility(View.GONE);
                         sessionHandler.loginUser(email);
                         loadMainActivity();
                     }else{

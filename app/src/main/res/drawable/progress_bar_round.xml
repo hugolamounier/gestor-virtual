@@ -12,8 +12,8 @@
         android:useLevel="false">
 
         <size
-            android:width="60dp"
-            android:height="60dp" />
+            android:width="50dp"
+            android:height="50dp" />
 
         <gradient
             android:type="sweep"

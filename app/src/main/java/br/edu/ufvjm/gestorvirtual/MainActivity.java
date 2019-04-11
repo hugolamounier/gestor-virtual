@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -82,7 +83,8 @@ public class MainActivity extends AppCompatActivity
         CircleImageView navHeaderImageProfile = (CircleImageView)navView.findViewById(R.id.nav_header_profilePicture);
         TextView navHeaderUserName = (TextView)navView.findViewById(R.id.nav_header_userName);
         TextView navHeaderUserEmail = (TextView)navView.findViewById(R.id.nav_header_userEmail);
-
+        FrameLayout loadScreen = (FrameLayout)findViewById(R.id.loadScreen);
+        loadScreen.setVisibility(View.VISIBLE);
         JSONObject jsonObject = new JSONObject();
         String email = sessionHandler.returnLoggedUser();
         try
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity
                         user.setProfilePictureUri(response.getString(PROFILE_PICTURE_KEY));
 
                         loadNavHeaderUserInfo(navView.getContext(), user, navHeaderImageProfile, navHeaderUserName, navHeaderUserEmail);
+                        loadScreen.setVisibility(View.GONE);
                     }
                 }catch(JSONException e)
                 {
