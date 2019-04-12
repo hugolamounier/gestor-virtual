@@ -20,6 +20,8 @@
     //Fim Cadastro
 
     //Menu - Main Activity
+    <string name="MA_Report_Issue">Reportar um problema</string>
+
     <string name="MA_Account_Sep">Conta</string>
 
     <string name="MA_Logout">Sair</string>
@@ -43,4 +45,5 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
