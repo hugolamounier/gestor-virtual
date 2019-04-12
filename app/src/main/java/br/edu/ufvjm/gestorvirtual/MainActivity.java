@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.MapFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -154,6 +156,13 @@ public class MainActivity extends AppCompatActivity
     }
     @SuppressWarnings("StatementWithEmptyBody")
 
+
+    private void showFragment(Fragment fragment, String name)
+    {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.mapView, fragment, name);
+        fragmentTransaction.commit();
+    }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -162,8 +171,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_logout) {
             logout();
         }else if(id == R.id.nav_map){
-            Intent i = new Intent(getApplicationContext(), MapsFragment.class);
-            startActivity(i);
+            showFragment(new MapsFragment(), "MapFragment");
+        }else if(id == R.id.nav_teste)
+        {
+            showFragment(new MapProvider(), "MapProvider");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
