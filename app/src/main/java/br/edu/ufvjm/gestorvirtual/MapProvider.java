@@ -37,6 +37,7 @@ public class MapProvider extends SupportMapFragment implements OnMapReadyCallbac
             mMap = googleMap;
             mMap.setOnMapClickListener(this);
             mMap.getUiSettings().setZoomControlsEnabled(true);
+
             mMap.setMyLocationEnabled(true);
         }catch(SecurityException e){
             Log.e(TAG_LOG, "Erro", e);
