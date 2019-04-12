@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class BlankFragment extends Fragment {
+public class ReportedIssuesFragment extends Fragment {
 
 
-    public BlankFragment() {
+    public ReportedIssuesFragment() {
         // Required empty public constructor
     }
 

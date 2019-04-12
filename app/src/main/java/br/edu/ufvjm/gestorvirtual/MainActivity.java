@@ -3,7 +3,6 @@ package br.edu.ufvjm.gestorvirtual;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,7 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.maps.MapFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -175,10 +173,13 @@ public class MainActivity extends AppCompatActivity
         }else if(id == R.id.nav_teste)
         {
             showFragment(new MapProvider(), "MapProvider");
-        }else if(id == R.id.nav_teste2)
+        }else if(id == R.id.nav_profile)
+        {
+
+        }else if(id == R.id.nav_reported_issues)
         {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.mapView, new BlankFragment(), "teste2");
+            fragmentTransaction.add(R.id.mapView, new ReportedIssuesFragment(), "Problemas reportados");
             fragmentTransaction.commit();
         }
 

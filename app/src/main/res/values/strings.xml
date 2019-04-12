@@ -21,7 +21,9 @@
     //Fim Cadastro
 
     //Menu - Main Activity
-    <string name="MA_Report_Issue">Reportar um problema</string>
+    <string name="MA_Report_Issue">Reportar um Problema</string>
+    <string name="MA_Profile">Minha Conta</string>
+    <string name="MA_Reports">Problemas Reportados</string>
 
     <string name="MA_Account_Sep">Conta</string>
 
