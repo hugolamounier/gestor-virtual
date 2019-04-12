@@ -43,16 +43,6 @@ public class MapProvider extends SupportMapFragment implements OnMapReadyCallbac
             Log.e(TAG_LOG, "Erro", e);
         }
 
-
-        LatLng diamantina = new LatLng(-18.245175, -43.600411);
-
-        MarkerOptions marker = new MarkerOptions();
-        marker.position(diamantina);
-        marker.title("Diamantina");
-
-
-        mMap.addMarker(marker);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(diamantina, 15.5f), 1500, null);
     }
 
     @Override

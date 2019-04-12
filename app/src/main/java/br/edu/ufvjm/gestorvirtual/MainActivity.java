@@ -175,6 +175,11 @@ public class MainActivity extends AppCompatActivity
         }else if(id == R.id.nav_teste)
         {
             showFragment(new MapProvider(), "MapProvider");
+        }else if(id == R.id.nav_teste2)
+        {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.mapView, new BlankFragment(), "teste2");
+            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
