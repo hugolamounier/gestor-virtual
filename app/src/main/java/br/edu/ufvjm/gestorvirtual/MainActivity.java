@@ -178,9 +178,7 @@ public class MainActivity extends AppCompatActivity
 
         }else if(id == R.id.nav_reported_issues)
         {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.mapView, new ReportedIssuesFragment(), "Problemas reportados");
-            fragmentTransaction.commit();
+            showFragment(new ReportedIssuesFragment(), "Problemas reportados");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
