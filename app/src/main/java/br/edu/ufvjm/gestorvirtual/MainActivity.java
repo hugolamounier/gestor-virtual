@@ -173,11 +173,9 @@ public class MainActivity extends AppCompatActivity
         }else if(id == R.id.nav_teste)
         {
             showFragment(new MapProvider(), "MapProvider");
-        }else if(id == R.id.nav_profile)
-        {
+        }else if(id == R.id.nav_profile) {
 
-        }else if(id == R.id.nav_reported_issues)
-        {
+        }else if(id == R.id.nav_reported_issues) {
             showFragment(new ReportedIssuesFragment(), "Problemas reportados");
         }
 
