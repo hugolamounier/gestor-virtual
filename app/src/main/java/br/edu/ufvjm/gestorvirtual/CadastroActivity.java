@@ -5,21 +5,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CadastroActivity extends AppCompatActivity {
 
-    TextView emailEt;
-    TextView emailConEt;
-    TextView passwordEt;
-    TextView passwordConET;
-    TextView nameET;
-    TextView dateET;
+    EditText emailEt;
+    EditText emailConEt;
+    EditText passwordEt;
+    EditText passwordConET;
+    EditText nameET;
+    EditText dateET;
     TextView genderError;
     RadioGroup genderRg;
-    Button btnSingUp;
 
     private String EMAIL;
     private String EMAILC;
@@ -31,7 +34,16 @@ public class CadastroActivity extends AppCompatActivity {
 
 
 
+
+
     private void emptyInput(){ //Confere se não existe nenhum campo vazio
+        EditText emailEt = (EditText) findViewById(R.id.emailEt);
+        EditText emailConEt =(EditText) findViewById(R.id.emailConEt);
+        EditText passwordEt = (EditText) findViewById(R.id.passwordET);
+        EditText passwordConET = (EditText) findViewById(R.id.passwordConET);
+        EditText nameET = (EditText) findViewById(R.id.nameET);
+        EditText dateET = (EditText) findViewById(R.id.dateET);
+
         if ("".equals(emailEt.getText().toString())){
             emailEt.setError("E-mail não pode ser vazio.");
             emailEt.requestFocus();
@@ -58,7 +70,7 @@ public class CadastroActivity extends AppCompatActivity {
 
         }
         if ("".equals(dateET.getText().toString())) {
-            dateET.setError("Nome não pode ser vazio.");
+            dateET.setError("A data não pode estar vazia.");
             dateET.requestFocus();
 
         }
@@ -69,15 +81,17 @@ public class CadastroActivity extends AppCompatActivity {
 
     }
 
-    private void validateInput(){ //Confere se os emails e senhas são compativeis
-        if (emailEt.getText().toString()!=emailConEt.getText().toString()){
-            emailConEt.setError("E-mail não correspondentes");
-        }
-        if (passwordEt.getText().toString()!=passwordConET.getText().toString()) {
-            passwordConET.setError("Senhas não compativeis");
-        }
+    private boolean validInput(String EMAIL){
 
-
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(EMAIL);
+        boolean matchF = m.matches();
+        if (matchF){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +99,7 @@ public class CadastroActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cadastro);
 
-        emailEt = (TextView) findViewById(R.id.emailEt);
+        emailEt = (EditText) findViewById(R.id.emailEt);
         emailConEt = findViewById(R.id.emailConEt);
         passwordEt= findViewById(R.id.passwordET);
         passwordConET = findViewById(R.id.passwordConET);
@@ -94,6 +108,7 @@ public class CadastroActivity extends AppCompatActivity {
         BTN = findViewById(R.id.btnSignUp);
         genderRg =findViewById(R.id.genderRg);
         genderError = findViewById(R.id.genderError);
+        dateET.addTextChangedListener(new MaskWatcher("##/##/####"));
         BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +119,17 @@ public class CadastroActivity extends AppCompatActivity {
                 NAME = nameET.getText().toString();
                 DATE = dateET.getText().toString();
                 emptyInput();
-                validateInput();
+
+                if(!validInput(EMAIL)){
+                    emailEt.setError("Email Inválido");
+                }
+                if (!EMAIL.equals(EMAILC)){
+                    emailConEt.setError("E-mails incompativeis");
+
+                }
+                if(!PASS.equals(PASSC)){
+                    passwordConET.setError("Senhas incompativeis");
+                }
             }
 
         });
