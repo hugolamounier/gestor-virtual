@@ -30,6 +30,11 @@
     <string name="MA_Logout">Sair</string>
     // FIM MENU
 
+    //Reportar Problema
+    <string name="RP_Submit_Issue">Enviar Problema</string>
+    <string name="RP_Add_Picture">Adicionar Foto</string>
+    <string name="RP_Spinner_Label">Tipo do Problema</string>
+
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
