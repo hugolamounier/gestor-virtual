@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
 
         // Inicia o mapa no fragmento
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.mapView, new MapsFragment(), "MapFragment");
+        fragmentTransaction.add(R.id.mapView, new MapProvider(), "MapProvider");
         fragmentTransaction.commitAllowingStateLoss();
 
         // Objetos
@@ -169,9 +169,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_logout) {
             logout();
         }else if(id == R.id.nav_map){
-            showFragment(new MapsFragment(), "MapFragment");
-        }else if(id == R.id.nav_teste)
-        {
             showFragment(new MapProvider(), "MapProvider");
         }else if(id == R.id.nav_profile) {
 
