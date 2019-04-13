@@ -6,13 +6,19 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -78,8 +84,19 @@ public class MapProvider extends Fragment implements OnMapReadyCallback, GoogleM
 
         CardView locationMarker = (CardView)getView().findViewById(R.id.locationMarker);
         TextView locationAddress = (TextView)getView().findViewById(R.id.locationAddress);
+        ImageButton addReportButton = (ImageButton)getView().findViewById(R.id.fab_addReport);
 
-        locationMarker.setVisibility(View.VISIBLE);
+        Animation aniFadeIn = AnimationUtils.loadAnimation(getContext(), R.anim.fadein);
+        Animation aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.fadeout);
+
+        if(addReportButton.getVisibility() == View.INVISIBLE && locationMarker.getVisibility() == View.INVISIBLE)
+        {
+            locationMarker.setAnimation(aniFadeIn);
+            addReportButton.setAnimation(aniFadeIn);
+            addReportButton.setVisibility(View.VISIBLE);
+            addReportButton.bringToFront();
+            locationMarker.setVisibility(View.VISIBLE);
+        }
 
         Geocoder geocoder;
         List<Address> addresses;
