@@ -2,7 +2,6 @@ package br.edu.ufvjm.gestorvirtual;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -41,6 +40,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import static android.provider.CalendarContract.CalendarCache.URI;
 
 public class ReportIssueActivity extends FragmentActivity implements OnMapReadyCallback{
 
@@ -159,7 +160,7 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                setPictureUri(photoURI);
+                setPictureUri(URI.fromFile(photoFile));
             }
         }
     }
