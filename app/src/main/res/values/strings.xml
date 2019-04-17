@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Gestor Virtual</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="permission">As permissões são necessárias para que o Gestor Virtual funcione.</string>
 
     <!-- Strings related to login -->
     <string-array name="gender">
@@ -17,25 +18,24 @@
     <string name="C_Date">Data de Nascimento</string>
     <string name="C_Masculino">Masculino</string>
     <string name="C_Feminino">Feminino</string>
+    <string name="C_SingUp_Successful">Cadastro realizado com sucesso.</string>
     //Fim Cadastro
 
     //Menu - Main Activity
+    <string name="MA_Report_Issue">Reportar um Problema</string>
+    <string name="MA_Profile">Minha Conta</string>
+    <string name="MA_Reports">Problemas Reportados</string>
+
     <string name="MA_Account_Sep">Conta</string>
 
     <string name="MA_Logout">Sair</string>
     // FIM MENU
 
-    <string name="prompt_email">E-mail</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    //Reportar Problema
+    <string name="RP_Submit_Issue">Enviar Problema</string>
+    <string name="RP_Add_Picture">Adicionar Foto</string>
+    <string name="RP_Spinner_Label">Tipo do Problema</string>
+
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -43,4 +43,10 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
