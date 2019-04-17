@@ -22,4 +22,6 @@ public class ReportedIssuesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_reported_issues, container, false);
     }
 
+
+
 }
