@@ -43,7 +43,6 @@ public class User {
     public void setProfilePictureUri(String profilePictureUri) {
         this.profilePictureUri = profilePictureUri;
     }
-
     public int getGender() {
         return gender;
     }

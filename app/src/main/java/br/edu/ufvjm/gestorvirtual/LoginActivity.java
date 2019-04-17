@@ -54,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), CadastroActivity.class);
                 startActivity(i);
-                finish();
             }
         });
 
@@ -98,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                         email_input.setError(response.getString(KEY_MESSAGE));
                         password_input.setError(response.getString(KEY_MESSAGE));
+                        loadScreen.setVisibility(View.GONE);
                     }
                 }catch (JSONException e){
                     e.printStackTrace();

@@ -21,7 +21,7 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 // Esse método será executado sempre que o timer acabar
                 // E inicia a activity principal
-                Intent i = new Intent(Splash.this, LoginActivity.class);
+                Intent i = new Intent(Splash.this, CreatePermission.class);
                 startActivity(i);
 
                 finish();
