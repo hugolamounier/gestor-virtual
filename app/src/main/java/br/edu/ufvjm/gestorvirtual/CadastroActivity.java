@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -82,9 +83,6 @@ public class CadastroActivity extends AppCompatActivity {
         BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Recupera o radiobutton marcado
-                int genderId = genderRg.getCheckedRadioButtonId();
-                int gender;
 
                 EMAIL = emailEt.getText().toString();
                 EMAILC = emailConEt.getText().toString();
@@ -93,77 +91,81 @@ public class CadastroActivity extends AppCompatActivity {
                 NAME = nameET.getText().toString();
                 DATE = dateET.getText().toString();
 
-                //Pega o valor da string do radiobutton marcado e converte os sexos para int
-                RadioButton sex = (RadioButton)findViewById(genderId);
-                if(sex.getText().toString().equals(getResources().getString(R.string.C_Masculino)))
+                if(emptyInput()) // Verifica se existe campos vazios.
                 {
-                    gender = 0; //Masculino
-                }else if(sex.getText().toString().equals(getResources().getString(R.string.C_Feminino))){
-                    gender = 1; //Feminino
-                }else{
-                    gender = 2; //Outros
-                }
-
-
-                emptyInput(); // Verifica se existe campos vazios.
-
-                if(!validInput(EMAIL)){
-                    emailEt.setError("Email Inválido");
-                }else if (!EMAIL.equals(EMAILC)){
-                    emailConEt.setError("E-mails incompativeis");
-
-                }else if(!PASS.equals(PASSC)){
-                    passwordConET.setError("Senhas incompativeis");
-                }else{
-                    JSONObject jsonObject = new JSONObject();
-                    try{
-                        jsonObject.put("func", "singUp");
-                        jsonObject.put(KEY_EMAIL, EMAIL);
-                        jsonObject.put(KEY_PASSWORD, PASS);
-                        jsonObject.put(KEY_NAME, NAME);
-                        jsonObject.put(KEY_GENDER, gender);
-                        jsonObject.put(KEY_BIRTHDAY, DATE);
-                        jsonObject.put(KEY_PROFPIC, PROF_DEFAULT_PIC_URI);
-
-                    }catch (JSONException e){
-                        Log.e(TAG, "JSONObjectCreation", e);
+                    //Recupera o radiobutton marcado
+                    int genderId = genderRg.getCheckedRadioButtonId();
+                    int gender;
+                    //Pega o valor da string do radiobutton marcado e converte os sexos para int
+                    RadioButton sex = (RadioButton)findViewById(genderId);
+                    if(sex.getText().toString().equals(getResources().getString(R.string.C_Masculino)))
+                    {
+                        gender = 0; //Masculino
+                    }else if(sex.getText().toString().equals(getResources().getString(R.string.C_Feminino))){
+                        gender = 1; //Feminino
+                    }else{
+                        gender = 2; //Outros
                     }
 
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MySQL.APU_INSERT_URL, jsonObject, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try
-                            {
-                                if(response!=null && response.length()>0 && response.getInt(STATUS_KEY)==1)
-                                {
-                                    Snackbar.make(v, "Cadastro realizado com sucesso.", Snackbar.LENGTH_LONG)
-                                            .setAction(getResources().getString(R.string.C_SingUp_Successful), null).show();
-                                    finish();
-                                }else if(response.getInt(STATUS_KEY) == 0)
-                                {
-                                    Snackbar.make(v, response.getString(MESSAGE_KEY), Snackbar.LENGTH_LONG)
-                                            .setAction(getResources().getString(R.string.C_SingUp_Successful), null).show();
-                                }
-                            }catch (JSONException e)
-                            {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e(TAG, "JSONRequestError", error);
-                        }
-                    });
+                    if(!validInput(EMAIL)){
+                        emailEt.setError("Email Inválido");
+                    }else if (!EMAIL.equals(EMAILC)){
+                        emailConEt.setError("E-mails incompativeis");
+                    }else if(!PASS.equals(PASSC)){
+                        passwordConET.setError("Senhas incompativeis");
+                    }else{
+                        JSONObject jsonObject = new JSONObject();
+                        try{
+                            jsonObject.put("func", "singUp");
+                            jsonObject.put(KEY_EMAIL, EMAIL);
+                            jsonObject.put(KEY_PASSWORD, PASS);
+                            jsonObject.put(KEY_NAME, NAME);
+                            jsonObject.put(KEY_GENDER, gender);
+                            jsonObject.put(KEY_BIRTHDAY, DATE);
+                            jsonObject.put(KEY_PROFPIC, PROF_DEFAULT_PIC_URI);
 
+                        }catch (JSONException e){
+
+                            Log.e(TAG, "JSONObjectCreation", e);
+                        }
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MySQL.API_INSERT_URL, jsonObject, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try
+                                {
+                                    if(response!=null && response.length()>0 && response.getInt(STATUS_KEY)==1)
+                                    {
+                                        Snackbar.make(v, "Cadastro realizado com sucesso.", Snackbar.LENGTH_LONG)
+                                               .setAction(getResources().getString(R.string.C_SingUp_Successful), null).show();
+                                        finish();
+                                    }else if(response.getInt(STATUS_KEY) == 0)
+                                    {
+                                        Snackbar.make(v, response.getString(MESSAGE_KEY), Snackbar.LENGTH_LONG)
+                                        .setAction(getResources().getString(R.string.C_SingUp_Successful), null).show();
+                                    }
+                                }catch (JSONException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "JSONRequestError", error);
+                            }
+                        });
+                        MySingleton.getInstance(getApplication()).addToRequestQueue(jsonObjectRequest);
+                    }
                 }
+
             }
 
         });
 
     }
 
-    private void emptyInput(){ //Confere se não existe nenhum campo vazio
+    private boolean emptyInput(){ //Confere se não existe nenhum campo vazio
         EditText emailEt = (EditText) findViewById(R.id.emailEt);
         EditText emailConEt =(EditText) findViewById(R.id.emailConEt);
         EditText passwordEt = (EditText) findViewById(R.id.passwordET);
@@ -174,38 +176,40 @@ public class CadastroActivity extends AppCompatActivity {
         if ("".equals(emailEt.getText().toString())){
             emailEt.setError("E-mail não pode ser vazio.");
             emailEt.requestFocus();
+            return false;
 
         }
         if ("".equals(emailConEt.getText().toString())){
             emailConEt.setError("E-mail não pode ser vazio.");
             emailConEt.requestFocus();
+            return false;
 
         }
         if ("".equals(passwordEt.getText().toString())){
             passwordEt.setError("Senha não pode ser vazia.");
             passwordEt.requestFocus();
-
+            return false;
         }
         if ("".equals(passwordConET.getText().toString())){
             passwordConET.setError("Senha não pode ser vazia.");
             passwordConET.requestFocus();
-
+            return false;
         }
         if ("".equals(nameET.getText().toString())) {
             nameET.setError("Nome não pode ser vazio.");
             nameET.requestFocus();
-
+            return false;
         }
         if ("".equals(dateET.getText().toString())) {
             dateET.setError("A data não pode estar vazia.");
             dateET.requestFocus();
-
+            return false;
         }
         if(genderRg.getCheckedRadioButtonId()==-1){
             genderError.setText("Selecione um genero");
-
+            return false;
         }
-
+        return true;
     }
 
     private boolean validInput(String EMAIL){
