@@ -2,6 +2,7 @@ package br.edu.ufvjm.gestorvirtual;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -10,8 +11,18 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import br.edu.ufvjm.gestorvirtual.MySQL.MySQLHelper;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -30,11 +41,121 @@ public class CadastroActivity extends AppCompatActivity {
     private String PASSC;
     private String NAME;
     private String DATE;
+    private String GENDER;
     private Button BTN;
 
+    MySQLHelper MySQL = new MySQLHelper(this);
+
+    private static final String STATUS_KEY = "status";
+    private static final String MESSAGE_KEY = "message";
+
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_GENDER = "gender";
+    private static final String KEY_BIRTHDAY = "birthday";
+    private static final String KEY_PROFPIC = "profile";
+
+    private String PROF_DEFAULT_PIC_URI = MySQL.SERVER_URI+"/images/profile/default.jpg";
+    private static final String TAG = "Cadastro";
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_cadastro);
 
+        //Objetos
+        emailEt = (EditText) findViewById(R.id.emailEt);
+        emailConEt = findViewById(R.id.emailConEt);
+        passwordEt= findViewById(R.id.passwordET);
+        passwordConET = findViewById(R.id.passwordConET);
+        nameET = findViewById(R.id.nameET);
+        dateET = findViewById(R.id.dateET);
+        dateET.addTextChangedListener(new MaskWatcher("##/##/####"));
+        BTN = findViewById(R.id.btnSignUp);
+        genderRg = findViewById(R.id.genderRg);
+        genderError = findViewById(R.id.genderError);
+
+        BTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Recupera o radiobutton marcado
+                int genderId = genderRg.getCheckedRadioButtonId();
+                int gender;
+
+                EMAIL = emailEt.getText().toString();
+                EMAILC = emailConEt.getText().toString();
+                PASS = passwordEt.getText().toString();
+                PASSC = passwordConET.getText().toString();
+                NAME = nameET.getText().toString();
+                DATE = dateET.getText().toString();
+
+                //Pega o valor da string do radiobutton marcado e converte os sexos para int
+                RadioButton sex = (RadioButton)findViewById(genderId);
+                if(sex.getText().toString().equals(getResources().getString(R.string.C_Masculino)))
+                {
+                    gender = 0; //Masculino
+                }else if(sex.getText().toString().equals(getResources().getString(R.string.C_Feminino))){
+                    gender = 1; //Feminino
+                }else{
+                    gender = 2; //Outros
+                }
+
+
+                emptyInput(); // Verifica se existe campos vazios.
+
+                if(!validInput(EMAIL)){
+                    emailEt.setError("Email Inválido");
+                }else if (!EMAIL.equals(EMAILC)){
+                    emailConEt.setError("E-mails incompativeis");
+
+                }else if(!PASS.equals(PASSC)){
+                    passwordConET.setError("Senhas incompativeis");
+                }else{
+                    JSONObject jsonObject = new JSONObject();
+                    try{
+                        jsonObject.put("func", "singUp");
+                        jsonObject.put(KEY_EMAIL, EMAIL);
+                        jsonObject.put(KEY_PASSWORD, PASS);
+                        jsonObject.put(KEY_NAME, NAME);
+                        jsonObject.put(KEY_GENDER, gender);
+                        jsonObject.put(KEY_BIRTHDAY, DATE);
+                        jsonObject.put(KEY_PROFPIC, PROF_DEFAULT_PIC_URI);
+
+                    }catch (JSONException e){
+                        Log.e(TAG, "JSONObjectCreation", e);
+                    }
+
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MySQL.APU_INSERT_URL, jsonObject, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try
+                            {
+                                if(response!=null && response.length()>0 && response.getInt(STATUS_KEY)==1)
+                                {
+
+                                    finish();
+                                }
+                            }catch (JSONException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+
+                }
+            }
+
+        });
+
+    }
 
     private void emptyInput(){ //Confere se não existe nenhum campo vazio
         EditText emailEt = (EditText) findViewById(R.id.emailEt);
@@ -92,48 +213,6 @@ public class CadastroActivity extends AppCompatActivity {
         else {
             return false;
         }
-    }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_cadastro);
-
-        emailEt = (EditText) findViewById(R.id.emailEt);
-        emailConEt = findViewById(R.id.emailConEt);
-        passwordEt= findViewById(R.id.passwordET);
-        passwordConET = findViewById(R.id.passwordConET);
-        nameET = findViewById(R.id.nameET);
-        dateET = findViewById(R.id.dateET);
-        BTN = findViewById(R.id.btnSignUp);
-        genderRg =findViewById(R.id.genderRg);
-        genderError = findViewById(R.id.genderError);
-        dateET.addTextChangedListener(new MaskWatcher("##/##/####"));
-        BTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EMAIL = emailEt.getText().toString();
-                EMAILC = emailConEt.getText().toString();
-                PASS = passwordEt.getText().toString();
-                PASSC = passwordConET.getText().toString();
-                NAME = nameET.getText().toString();
-                DATE = dateET.getText().toString();
-                emptyInput();
-
-                if(!validInput(EMAIL)){
-                    emailEt.setError("Email Inválido");
-                }
-                if (!EMAIL.equals(EMAILC)){
-                    emailConEt.setError("E-mails incompativeis");
-
-                }
-                if(!PASS.equals(PASSC)){
-                    passwordConET.setError("Senhas incompativeis");
-                }
-            }
-
-        });
-
     }
 
 }
