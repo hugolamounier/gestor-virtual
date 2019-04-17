@@ -1,5 +1,6 @@
 package br.edu.ufvjm.gestorvirtual;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -135,8 +136,13 @@ public class CadastroActivity extends AppCompatActivity {
                             {
                                 if(response!=null && response.length()>0 && response.getInt(STATUS_KEY)==1)
                                 {
-
+                                    Snackbar.make(v, "Cadastro realizado com sucesso.", Snackbar.LENGTH_LONG)
+                                            .setAction(getResources().getString(R.string.C_SingUp_Successful), null).show();
                                     finish();
+                                }else if(response.getInt(STATUS_KEY) == 0)
+                                {
+                                    Snackbar.make(v, response.getString(MESSAGE_KEY), Snackbar.LENGTH_LONG)
+                                            .setAction(getResources().getString(R.string.C_SingUp_Successful), null).show();
                                 }
                             }catch (JSONException e)
                             {
@@ -146,7 +152,7 @@ public class CadastroActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
+                            Log.e(TAG, "JSONRequestError", error);
                         }
                     });
 
