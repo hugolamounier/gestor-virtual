@@ -8,5 +8,5 @@
     <color name="btnColorAccent">#f03e00</color>
     <color name="btnTextColor">#ffffff</color>
 
-    <color name="background">#efefef</color>
+    <color name="backgroundColor">#efefef</color>
 </resources>
