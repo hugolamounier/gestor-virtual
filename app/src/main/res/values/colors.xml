@@ -7,4 +7,6 @@
     <color name="btnColor">#f0dc00</color>
     <color name="btnColorAccent">#f03e00</color>
     <color name="btnTextColor">#ffffff</color>
+
+    <color name="background">#efefef</color>
 </resources>
