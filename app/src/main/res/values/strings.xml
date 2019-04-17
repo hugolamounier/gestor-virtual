@@ -46,5 +46,4 @@
     <string name="title_activity_maps">Map</string>
 
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCGdtSLrWy3BkSi3zNZEsaeQjw1Kaq8Mbk</string>
 </resources>
