@@ -47,8 +47,6 @@ public class LoginActivity extends AppCompatActivity {
         password_input = (TextInputEditText) findViewById(R.id.passwordTi);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
-
-
         loadScreen = (FrameLayout)findViewById(R.id.loadScreen);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {

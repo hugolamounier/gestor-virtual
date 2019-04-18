@@ -56,6 +56,7 @@ public class PerfilFragment extends Fragment {
         TextView perfilText = (TextView) view.getRootView().findViewById(R.id.perfilText);
         CircleImageView perfilImg = (CircleImageView) view.getRootView().findViewById(R.id.perfilImg);
         sessionHandler = new SessionHandler(getContext());
+
         FrameLayout loadScreen = (FrameLayout)view.findViewById(R.id.loadScreen);
         loadScreen.setVisibility(View.VISIBLE);
 
