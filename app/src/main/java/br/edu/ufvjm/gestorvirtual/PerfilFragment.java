@@ -83,8 +83,9 @@ public class PerfilFragment extends Fragment {
                         user.setPassword(response.getString(PASSWORD_KEY));
                         user.setGender(response.getInt(GENDER_KEY));
                         user.setProfilePictureUri(response.getString(PROFILE_PICTURE_KEY));
-                        perfilText.setText(user.getEmail());
+                        perfilText.setText(user.getName());
                         Glide.with(getContext()).load(user.getProfilePictureUri()).into(perfilImg);
+                        loadScreen.setVisibility(View.GONE);
                     }
                 }catch(JSONException e)
                 {
