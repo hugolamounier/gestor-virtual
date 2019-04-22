@@ -59,7 +59,7 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
 
-    String[] SPINNERLIST = {"Saneamento Básico", "Iluminação Pública"};
+    String[] SPINNERLIST = getResources().getStringArray(R.string.issue_type);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
