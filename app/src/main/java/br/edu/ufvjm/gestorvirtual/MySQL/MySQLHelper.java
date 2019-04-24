@@ -1,17 +1,8 @@
 package br.edu.ufvjm.gestorvirtual.MySQL;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.os.StrictMode;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-
-import br.edu.ufvjm.gestorvirtual.LoginActivity;
-import br.edu.ufvjm.gestorvirtual.R;
 
 public class MySQLHelper {
 
