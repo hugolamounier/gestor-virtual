@@ -1,5 +1,6 @@
 package br.edu.ufvjm.gestorvirtual;
 
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -142,7 +143,13 @@ public class CadastroActivity extends AppCompatActivity {
                                         Snackbar.make(v, "Cadastro realizado com sucesso.", Snackbar.LENGTH_LONG)
                                                .setAction(getResources().getString(R.string.C_SingUp_Successful), null).show();
                                         loadScreen.setVisibility(View.INVISIBLE);
-                                        finish();
+                                        Handler handler = new Handler();
+
+                                        handler.postDelayed(new Runnable() {
+                                            public void run() {
+                                                finish();
+                                            }
+                                        }, 1500);
                                     }else if(response.getInt(STATUS_KEY) == 0)
                                     {
                                         Snackbar.make(v, response.getString(MESSAGE_KEY), Snackbar.LENGTH_LONG)
