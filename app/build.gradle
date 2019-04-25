@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.0' // Requisição HTTP
     api 'com.google.guava:guava:27.1-android' // API para Hashing
     implementation 'de.hdodenhof:circleimageview:3.0.0' // Imagem circular
+    implementation 'com.makeramen:roundedimageview:2.3.0' //Rounded Image View
     implementation 'com.weiwangcn.betterspinner:library-material:1.1.0' //spinner
     implementation 'net.gotev:uploadservice:2.1'
 

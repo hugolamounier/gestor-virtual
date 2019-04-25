@@ -188,7 +188,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgViewThumb"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -201,6 +202,8 @@
             app:layout_constraintStart_toEndOf="@+id/addImage"
             app:layout_constraintTop_toBottomOf="@+id/cardView2"
             app:layout_constraintVertical_bias="0.0" />
+
+
 
     </android.support.constraint.ConstraintLayout>
 

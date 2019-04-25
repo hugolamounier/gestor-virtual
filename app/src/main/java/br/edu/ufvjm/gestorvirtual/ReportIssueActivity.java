@@ -2,6 +2,7 @@ package br.edu.ufvjm.gestorvirtual;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -56,6 +57,7 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
 
     private Uri pictureUri;
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
 
     String[] SPINNERLIST = {"1", "2", "3", "4"};
@@ -165,6 +167,18 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
             }
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            imgViewThumb = (ImageView) findViewById(R.id.imgViewThumb);
+            Bitmap bitmap = BitmapFactory.decodeFile(getPictureUri().getEncodedPath());
+
+            imgViewThumb.setImageBitmap(BitmapFactory.decodeFile(getPictureUri().getEncodedPath()));
+        }
+    }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
