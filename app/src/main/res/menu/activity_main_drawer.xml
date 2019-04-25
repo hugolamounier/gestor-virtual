@@ -13,19 +13,20 @@
             android:id="@+id/nav_reported_issues"
             android:icon="@drawable/ic_feedback_black_24dp"
             android:title="@string/MA_Reports" />
-        <item android:title="@string/MA_Account_Sep">
 
-            <menu>
-                <item
-                    android:id="@+id/nav_profile"
-                    android:icon="@drawable/ic_person_black_24dp"
-                    android:title="@string/MA_Profile" />
-                <item
-                    android:id="@+id/nav_logout"
-                    android:icon="@drawable/ic_exit_to_app_black_24dp"
-                    android:title="@string/MA_Logout" />
-            </menu>
-        </item>
     </group>
+
+    <item android:title="@string/MA_Account_Sep">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_person_black_24dp"
+                android:title="@string/MA_Profile" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="@string/MA_Logout" />
+        </menu>
+    </item>
 
 </menu>
