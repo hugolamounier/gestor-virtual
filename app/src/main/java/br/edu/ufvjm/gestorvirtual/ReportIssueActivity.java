@@ -1,9 +1,9 @@
 package br.edu.ufvjm.gestorvirtual;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -11,24 +11,17 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -42,6 +35,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static android.provider.CalendarContract.CalendarCache.URI;
 
 public class ReportIssueActivity extends FragmentActivity implements OnMapReadyCallback{
@@ -53,7 +48,7 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
     private Button addImagmeBtn;
     private static final String TAG_LOG = "ReportIssueActivity";
     private String currentPhotoPath;
-    private ImageView imgViewThumb;
+    private CircleImageView imgViewThumb;
 
     private Uri pictureUri;
 
@@ -66,7 +61,7 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_issue);
-
+        setPictureUri(null);
 
         //Adicione a back_arrow na actionbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -118,7 +113,18 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
         addImagmeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakePictureIntent();
+                if(getPictureUri() == null) {
+                    dispatchTakePictureIntent();
+                }else{
+                    File unsedFile = new File(getPictureUri().getEncodedPath()); //Deleta o arquivo que não foi utilizado antes de tirar uma nova foto
+                    try {
+                        unsedFile.delete();
+                        dispatchTakePictureIntent();
+                    }catch(Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
         });
 
@@ -169,12 +175,25 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
+    protected void onDestroy() {
+        if(getPictureUri() != null) {
+            File unsedFile = new File(getPictureUri().getEncodedPath()); //Deleta o arquivo que não foi utilizado
+            try {
+                unsedFile.delete();
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        super.onDestroy();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            imgViewThumb = (ImageView) findViewById(R.id.imgViewThumb);
-            Bitmap bitmap = BitmapFactory.decodeFile(getPictureUri().getEncodedPath());
+            imgViewThumb = (CircleImageView) findViewById(R.id.imgViewThumb);
 
-            imgViewThumb.setImageBitmap(BitmapFactory.decodeFile(getPictureUri().getEncodedPath()));
+            imgViewThumb.setImageBitmap(BitmapFactory.decodeFile(getPictureUri().getEncodedPath())); //Transforma a imagem em bitmap e carrega no imageview
+
         }
     }
 
