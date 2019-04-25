@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,9 +52,13 @@ public class PerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+        //Objectos
         TextView perfilText = (TextView) view.getRootView().findViewById(R.id.perfilText);
         CircleImageView perfilImg = (CircleImageView) view.getRootView().findViewById(R.id.perfilImg);
         sessionHandler = new SessionHandler(getContext());
+
+        FrameLayout loadScreen = (FrameLayout)view.findViewById(R.id.loadScreen);
+        loadScreen.setVisibility(View.VISIBLE);
 
         JSONObject jsonObject = new JSONObject();
         String email = sessionHandler.returnLoggedUser();
@@ -78,8 +83,9 @@ public class PerfilFragment extends Fragment {
                         user.setPassword(response.getString(PASSWORD_KEY));
                         user.setGender(response.getInt(GENDER_KEY));
                         user.setProfilePictureUri(response.getString(PROFILE_PICTURE_KEY));
-                        perfilText.setText(user.getEmail());
+                        perfilText.setText(user.getName());
                         Glide.with(getContext()).load(user.getProfilePictureUri()).into(perfilImg);
+                        loadScreen.setVisibility(View.GONE);
                     }
                 }catch(JSONException e)
                 {

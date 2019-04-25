@@ -19,6 +19,7 @@
     <string name="C_Masculino">Masculino</string>
     <string name="C_Feminino">Feminino</string>
     <string name="C_SingUp_Successful">Cadastro realizado com sucesso.</string>
+    <string name="C_SingUp_Unsuccessful">Cadastro não realizado.</string>
     //Fim Cadastro
 
     //Menu - Main Activity

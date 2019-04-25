@@ -121,12 +121,14 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
         });
 
     }
+
     public Uri getPictureUri() {
         return pictureUri;
     }
     public void setPictureUri(Uri pictureUri) {
         this.pictureUri = pictureUri;
     }
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
