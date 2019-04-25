@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -80,6 +81,8 @@ public class CadastroActivity extends AppCompatActivity {
         genderRg = findViewById(R.id.genderRg);
         genderError = findViewById(R.id.genderError);
 
+        FrameLayout loadScreen = (FrameLayout)findViewById(R.id.loadScreen);
+
         BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +131,7 @@ public class CadastroActivity extends AppCompatActivity {
 
                             Log.e(TAG, "JSONObjectCreation", e);
                         }
+                        loadScreen.setVisibility(View.VISIBLE);
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MySQL.API_INSERT_URL, jsonObject, new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -137,15 +141,18 @@ public class CadastroActivity extends AppCompatActivity {
                                     {
                                         Snackbar.make(v, "Cadastro realizado com sucesso.", Snackbar.LENGTH_LONG)
                                                .setAction(getResources().getString(R.string.C_SingUp_Successful), null).show();
+                                        loadScreen.setVisibility(View.INVISIBLE);
                                         finish();
                                     }else if(response.getInt(STATUS_KEY) == 0)
                                     {
                                         Snackbar.make(v, response.getString(MESSAGE_KEY), Snackbar.LENGTH_LONG)
-                                        .setAction(getResources().getString(R.string.C_SingUp_Successful), null).show();
+                                        .setAction(getResources().getString(R.string.C_SingUp_Unsuccessful), null).show();
+                                        loadScreen.setVisibility(View.INVISIBLE);
                                     }
                                 }catch (JSONException e)
                                 {
                                     e.printStackTrace();
+                                    loadScreen.setVisibility(View.INVISIBLE);
                                 }
                             }
                         }, new Response.ErrorListener() {
@@ -153,6 +160,7 @@ public class CadastroActivity extends AppCompatActivity {
                             public void onErrorResponse(VolleyError error) {
                                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "JSONRequestError", error);
+                                loadScreen.setVisibility(View.INVISIBLE);
                             }
                         });
                         MySingleton.getInstance(getApplication()).addToRequestQueue(jsonObjectRequest);
