@@ -26,8 +26,6 @@ import com.bumptech.glide.Glide;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.edu.ufvjm.gestorvirtual.MySQL.MySQLHelper;
-import br.edu.ufvjm.gestorvirtual.MySQL.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     private static final String PASSWORD_KEY = "password";
 
 
-    MySQLHelper MySQL = new MySQLHelper(this);
+    MySQLHelper MySQL = new MySQLHelper();
     User user = new User();
 
     private FragmentManager fragmentManager;

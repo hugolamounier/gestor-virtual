@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,13 +19,11 @@ import com.bumptech.glide.Glide;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.edu.ufvjm.gestorvirtual.MySQL.MySQLHelper;
-import br.edu.ufvjm.gestorvirtual.MySQL.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerfilFragment extends Fragment {
 
-    MySQLHelper MySQL = new MySQLHelper(getContext());
+    MySQLHelper MySQL = new MySQLHelper();
     private static final String FUNC_KEY = "func";
     private static final String EMAIL_KEY = "email";
     private static final String STATUS_KEY = "status";
@@ -45,7 +42,6 @@ public class PerfilFragment extends Fragment {
         // Required empty public constructor
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

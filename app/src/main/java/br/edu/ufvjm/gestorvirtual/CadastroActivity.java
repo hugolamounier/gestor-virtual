@@ -26,8 +26,6 @@ import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.edu.ufvjm.gestorvirtual.MySQL.MySQLHelper;
-
 public class CadastroActivity extends AppCompatActivity {
 
     EditText emailEt;
@@ -48,7 +46,7 @@ public class CadastroActivity extends AppCompatActivity {
     private String GENDER;
     private Button BTN;
 
-    MySQLHelper MySQL = new MySQLHelper(this);
+    MySQLHelper MySQL = new MySQLHelper();
 
     private static final String STATUS_KEY = "status";
     private static final String MESSAGE_KEY = "message";

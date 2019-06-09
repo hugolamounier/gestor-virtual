@@ -1,8 +1,9 @@
-package br.edu.ufvjm.gestorvirtual.MySQL;
+package br.edu.ufvjm.gestorvirtual;
+
 
 public class User {
-    String email, password, name, birth, profilePictureUri;
-    int gender;
+    private String email, password, name, birth, profilePictureUri;
+    private int gender;
 
     public String getEmail() {
         return email;

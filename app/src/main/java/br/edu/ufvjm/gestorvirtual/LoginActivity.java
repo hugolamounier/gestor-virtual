@@ -14,14 +14,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.edu.ufvjm.gestorvirtual.MySQL.MySQLHelper;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 public class LoginActivity extends AppCompatActivity {
 
-    MySQLHelper MySQL = new MySQLHelper(this);
+    MySQLHelper MySQL = new MySQLHelper();
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_STATUS = "status";
