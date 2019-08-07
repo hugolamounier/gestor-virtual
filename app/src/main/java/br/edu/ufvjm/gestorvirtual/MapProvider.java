@@ -42,7 +42,7 @@ public class MapProvider extends Fragment implements OnMapReadyCallback, GoogleM
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.overlay_map_fragment, container, false);
 
-        ImageButton addReportButton = (ImageButton)view.findViewById(R.id.fab_addReport);
+        ImageButton addReportButton = (ImageButton)view.findViewById(R.id.fab_close);
         addReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +101,7 @@ public class MapProvider extends Fragment implements OnMapReadyCallback, GoogleM
         //Objetos do fragmento
         CardView locationMarker = (CardView)getView().findViewById(R.id.locationMarker);
         TextView locationAddress = (TextView)getView().findViewById(R.id.locationAddress);
-        ImageButton addReportButton = (ImageButton)getView().findViewById(R.id.fab_addReport);
+        ImageButton addReportButton = (ImageButton)getView().findViewById(R.id.fab_close);
 
         //Criar as animações
         Animation aniFadeIn = AnimationUtils.loadAnimation(getContext(), R.anim.fadein);
