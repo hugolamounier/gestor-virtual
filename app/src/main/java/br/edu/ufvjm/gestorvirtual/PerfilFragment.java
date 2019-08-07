@@ -66,7 +66,7 @@ public class PerfilFragment extends Fragment {
         {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MySQL.API_READ_URL, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MySQLHelper.API_READ_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try
