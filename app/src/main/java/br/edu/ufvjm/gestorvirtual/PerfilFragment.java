@@ -66,35 +66,7 @@ public class PerfilFragment extends Fragment {
         {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MySQLHelper.API_READ_URL, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try
-                {
-                    if(response!=null && response.length()>0 && response.getInt(STATUS_KEY)==1)//verifica se a array ta vazia e a resposta do servidor 1=ok, 0=not ok
-                    {
-                        user.setEmail(email);
-                        user.setName(response.getString(NAME_KEY));
-                        user.setBirth(response.getString(BIRTHDAY_KEY));
-                        user.setPassword(response.getString(PASSWORD_KEY));
-                        user.setGender(response.getInt(GENDER_KEY));
-                        user.setProfilePictureUri(response.getString(PROFILE_PICTURE_KEY));
-                        perfilText.setText(user.getName());
-                        Glide.with(getContext()).load(user.getProfilePictureUri()).into(perfilImg);
-                        loadScreen.setVisibility(View.GONE);
-                    }
-                }catch(JSONException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.getMessage();
-            }
-        });
-        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+
         return view;
     }
 
