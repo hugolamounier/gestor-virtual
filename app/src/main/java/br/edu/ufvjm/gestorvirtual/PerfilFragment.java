@@ -23,7 +23,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerfilFragment extends Fragment {
 
-    MySQLHelper MySQL = new MySQLHelper();
     private static final String FUNC_KEY = "func";
     private static final String EMAIL_KEY = "email";
     private static final String STATUS_KEY = "status";
@@ -33,7 +32,6 @@ public class PerfilFragment extends Fragment {
     private static final String GENDER_KEY = "gender";
     private static final String PASSWORD_KEY = "password";
     private SessionHandler sessionHandler;
-    User user = new User();
     TextView perfilText;
     CircleImageView perfilImg;
 
@@ -66,7 +64,26 @@ public class PerfilFragment extends Fragment {
         {
             e.printStackTrace();
         }
-
+        GetVolleyResponse request = new GetVolleyResponse(getContext());
+        request.getResponse(MySQLHelper.API_READ_URL, jsonObject, new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(JSONObject response) {
+                try
+                {
+                    if(response!=null && response.length()>0 && response.getInt(STATUS_KEY)==1)//verifica se a array ta vazia e a resposta do servidor 1=ok, 0=not ok
+                    {
+                        User user = new User(email, response.getString(PASSWORD_KEY), response.getString(NAME_KEY), response.getString(BIRTHDAY_KEY),
+                                            response.getString(PROFILE_PICTURE_KEY), response.getInt(GENDER_KEY));
+                        perfilText.setText(user.getName());
+                        Glide.with(getContext()).load(user.getProfilePictureUri()).into(perfilImg);
+                        loadScreen.setVisibility(View.GONE);
+                    }
+                }catch(JSONException ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+        });
         return view;
     }
 

@@ -36,4 +36,5 @@ public class GetVolleyResponse {
         });
         MySingleton.getInstance(mContext).addToRequestQueue(jsonObjectRequest);
     }
+
 }

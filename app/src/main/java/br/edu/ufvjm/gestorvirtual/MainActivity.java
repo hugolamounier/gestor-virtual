@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity
     private static final String PASSWORD_KEY = "password";
 
 
-    MySQLHelper MySQL = new MySQLHelper();
-    User user = new User();
-
     private FragmentManager fragmentManager;
 
     @Override
@@ -99,19 +96,15 @@ public class MainActivity extends AppCompatActivity
         {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MySQL.API_READ_URL, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MySQLHelper.API_READ_URL, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try
                 {
                     if(response!=null && response.length()>0 && response.getInt(STATUS_KEY)==1)//verifica se a array ta vazia e a resposta do servidor 1=ok, 0=not ok
                     {
-                        user.setEmail(email);
-                        user.setName(response.getString(NAME_KEY));
-                        user.setBirth(response.getString(BIRTHDAY_KEY));
-                        user.setPassword(response.getString(PASSWORD_KEY));
-                        user.setGender(response.getInt(GENDER_KEY));
-                        user.setProfilePictureUri(response.getString(PROFILE_PICTURE_KEY));
+                        User user = new User(email, response.getString(PASSWORD_KEY), response.getString(NAME_KEY), response.getString(BIRTHDAY_KEY),
+                                response.getString(PROFILE_PICTURE_KEY), response.getInt(GENDER_KEY));
 
                         loadNavHeaderUserInfo(navView.getContext(), user, navHeaderImageProfile, navHeaderUserName, navHeaderUserEmail);
                         loadScreen.setVisibility(View.GONE);

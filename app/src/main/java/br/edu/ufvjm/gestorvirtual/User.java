@@ -5,6 +5,15 @@ public class User {
     private String email, password, name, birth, profilePictureUri;
     private int gender;
 
+    public User(String email, String password, String name, String birth, String profilePictureUri, int gender) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.birth = birth;
+        this.profilePictureUri = profilePictureUri;
+        this.gender = gender;
+    }
+
     public String getEmail() {
         return email;
     }

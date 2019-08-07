@@ -1,5 +1,7 @@
 package br.edu.ufvjm.gestorvirtual;
 
+import org.json.JSONObject;
+
 public interface VolleyCallback {
-    void onSuccessResponse(Object result);
+    void onSuccessResponse(JSONObject result);
 }
