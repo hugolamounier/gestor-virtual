@@ -47,6 +47,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -107,8 +110,6 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
-
-
         //Objetos
         locationAddress = (TextView)findViewById(R.id.addressTv);
         submitIssueBtn = (Button)findViewById(R.id.submitIssue);
@@ -189,9 +190,7 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
                 int cv_width = imagePreviewCardView.getWidth();
 
                 iv_imagePreview.getLayoutParams().width=cv_width*metrics.densityDpi;
-                ObjectAnimator fadeIn = ObjectAnimator.ofFloat(fl_imagePreview, "alpha", 0, 1f);
-                fadeIn.setDuration(800);
-                fadeIn.start();
+                Routines.fadeIn(fl_imagePreview);
                 fl_imagePreview.setVisibility(View.VISIBLE);
                 iv_imagePreview.setImageBitmap(BitmapFactory.decodeFile(getPictureUri().getEncodedPath()));
             }
@@ -200,11 +199,16 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
         ib_fl_close.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                ObjectAnimator fad = ObjectAnimator.ofFloat(fl_imagePreview, "alpha", 0, 1f);
-                fadeIn.setDuration(800);
-                fadeIn.start();
-                fl_imagePreview.setVisibility(View.GONE);
-
+                Routines.fadeOut(fl_imagePreview);
+                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+                Runnable task = new Runnable() {
+                    @Override
+                    public void run() {
+                        fl_imagePreview.setVisibility(View.INVISIBLE);
+                    }
+                };
+                scheduler.schedule(task, 490, TimeUnit.MILLISECONDS);
+                scheduler.shutdown();
             }
         });
 

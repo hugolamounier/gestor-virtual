@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0' //Rounded Image View
     implementation 'com.weiwangcn.betterspinner:library-material:1.1.0' //spinner
     implementation 'net.gotev:uploadservice:2.1'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.5'
 
     implementation 'com.github.bumptech.glide:glide:4.9.0' // load image http
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0' // load image http

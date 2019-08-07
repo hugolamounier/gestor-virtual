@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.io.IOException;
+
 public class Splash extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 700;
@@ -21,6 +23,11 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 // Esse método será executado sempre que o timer acabar
                 // E inicia a activity principal
+                try{
+                    Routines.cleanDataDirectory(getApplicationContext());
+                }catch (IOException e){
+                    e.fillInStackTrace();
+                }
                 Intent i = new Intent(Splash.this, CreatePermission.class);
                 startActivity(i);
 
