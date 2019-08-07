@@ -9,8 +9,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="20dp">
-
+        android:elevation="20dp"
+        android:background="#000000">
     </FrameLayout>
 
     <android.support.v7.widget.Toolbar
@@ -46,7 +46,7 @@
                 android:layout_height="150dp"
                 map:layout_constraintBottom_toBottomOf="parent"
                 map:layout_constraintEnd_toEndOf="parent"
-                map:layout_constraintHorizontal_bias="0.6"
+                map:layout_constraintHorizontal_bias="0.0"
                 map:layout_constraintStart_toStartOf="parent"
                 map:layout_constraintTop_toTopOf="parent"
                 map:layout_constraintVertical_bias="0.0"
