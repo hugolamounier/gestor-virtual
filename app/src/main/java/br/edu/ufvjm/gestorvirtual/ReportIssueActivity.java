@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.location.Address;
 import android.location.Geocoder;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -17,7 +18,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,6 +57,9 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
     private static final String TAG_LOG = "ReportIssueActivity";
     private String currentPhotoPath;
     private CircleImageView imgViewThumb;
+    private FrameLayout fl_imagePreview;
+    private ImageView iv_imagePreview;
+    private ImageButton ib_fl_close;
 
     private SessionHandler sessionHandler;
 
@@ -99,6 +107,10 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
         locationAddress = (TextView)findViewById(R.id.addressTv);
         submitIssueBtn = (Button)findViewById(R.id.submitIssue);
         addImagmeBtn = (Button)findViewById(R.id.addImage);
+        imgViewThumb = (CircleImageView)findViewById(R.id.imgViewThumb);
+        fl_imagePreview = (FrameLayout)findViewById(R.id.fl_imagePreview);
+        iv_imagePreview = (ImageView)findViewById(R.id.imagePreview);
+        ib_fl_close = (ImageButton)findViewById(R.id.fab_close);
 
         //Pega as informações passadas para a Activity.
         Bundle latlngLocation = getIntent().getParcelableExtra("ISSUE_LOCATION");
@@ -160,8 +172,15 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
             }
         });
 
-    }
+        imgViewThumb.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                fl_imagePreview.setVisibility(View.VISIBLE);
+                iv_imagePreview.setImageBitmap(BitmapFactory.decodeFile(getPictureUri().getEncodedPath()));
+            }
+        });
 
+    }
     public Uri getPictureUri() {
         return pictureUri;
     }
