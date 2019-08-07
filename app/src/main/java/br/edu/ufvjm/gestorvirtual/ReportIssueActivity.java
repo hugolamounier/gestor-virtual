@@ -1,5 +1,6 @@
 package br.edu.ufvjm.gestorvirtual;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -13,9 +14,13 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.FileProvider;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -60,6 +65,7 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
     private FrameLayout fl_imagePreview;
     private ImageView iv_imagePreview;
     private ImageButton ib_fl_close;
+    private CardView imagePreviewCardView;
 
     private SessionHandler sessionHandler;
 
@@ -111,6 +117,7 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
         fl_imagePreview = (FrameLayout)findViewById(R.id.fl_imagePreview);
         iv_imagePreview = (ImageView)findViewById(R.id.imagePreview);
         ib_fl_close = (ImageButton)findViewById(R.id.fab_close);
+        imagePreviewCardView = (CardView)findViewById(R.id.imagePreviewCardView);
 
         //Pega as informações passadas para a Activity.
         Bundle latlngLocation = getIntent().getParcelableExtra("ISSUE_LOCATION");
@@ -175,8 +182,29 @@ public class ReportIssueActivity extends FragmentActivity implements OnMapReadyC
         imgViewThumb.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                DisplayMetrics metrics;
+                metrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+                int cv_width = imagePreviewCardView.getWidth();
+
+                iv_imagePreview.getLayoutParams().width=cv_width*metrics.densityDpi;
+                ObjectAnimator fadeIn = ObjectAnimator.ofFloat(fl_imagePreview, "alpha", 0, 1f);
+                fadeIn.setDuration(800);
+                fadeIn.start();
                 fl_imagePreview.setVisibility(View.VISIBLE);
                 iv_imagePreview.setImageBitmap(BitmapFactory.decodeFile(getPictureUri().getEncodedPath()));
+            }
+        });
+
+        ib_fl_close.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ObjectAnimator fad = ObjectAnimator.ofFloat(fl_imagePreview, "alpha", 0, 1f);
+                fadeIn.setDuration(800);
+                fadeIn.start();
+                fl_imagePreview.setVisibility(View.GONE);
+
             }
         });
 
