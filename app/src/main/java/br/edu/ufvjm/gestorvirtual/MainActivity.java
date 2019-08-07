@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         setTitle(R.string.app_name);
         setContentView(R.layout.activity_main);
 
+        //Gerenciador de Sessão
         sessionHandler = new SessionHandler(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,9 +86,11 @@ public class MainActivity extends AppCompatActivity
         TextView navHeaderUserName = (TextView)navView.findViewById(R.id.nav_header_userName);
         TextView navHeaderUserEmail = (TextView)navView.findViewById(R.id.nav_header_userEmail);
         FrameLayout loadScreen = (FrameLayout)findViewById(R.id.loadScreen);
-        loadScreen.setVisibility(View.VISIBLE);
         JSONObject jsonObject = new JSONObject();
         String email = sessionHandler.returnLoggedUser();
+
+        //Ativa loadingscreen
+        loadScreen.setVisibility(View.VISIBLE);
         try
         {
             jsonObject.put(FUNC_KEY, "userInfo");
