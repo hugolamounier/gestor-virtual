@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -64,6 +65,9 @@ public class PerfilFragment extends Fragment {
         {
             e.printStackTrace();
         }
+
+        User user = new User();
+
         GetVolleyResponse request = new GetVolleyResponse(getContext());
         request.getResponse(MySQLHelper.API_READ_URL, jsonObject, new VolleyCallback() {
             @Override
@@ -72,8 +76,10 @@ public class PerfilFragment extends Fragment {
                 {
                     if(response!=null && response.length()>0 && response.getInt(STATUS_KEY)==1)//verifica se a array ta vazia e a resposta do servidor 1=ok, 0=not ok
                     {
-                        User user = new User(email, response.getString(PASSWORD_KEY), response.getString(NAME_KEY), response.getString(BIRTHDAY_KEY),
-                                            response.getString(PROFILE_PICTURE_KEY), response.getInt(GENDER_KEY));
+                        user.setEmail(email); user.setName(response.getString(NAME_KEY)); user.setPassword( response.getString(PASSWORD_KEY));
+                        user.setBirth(response.getString(BIRTHDAY_KEY)); user.setProfilePictureUri(response.getString(PROFILE_PICTURE_KEY));
+                        user.setGender(response.getInt(GENDER_KEY));
+
                         perfilText.setText(user.getName());
                         Glide.with(getContext()).load(user.getProfilePictureUri()).into(perfilImg);
                         loadScreen.setVisibility(View.GONE);
@@ -82,6 +88,7 @@ public class PerfilFragment extends Fragment {
                 {
                     ex.printStackTrace();
                 }
+                Toast.makeText(getContext(), user.toString(), Toast.LENGTH_LONG).show();
             }
         });
         return view;

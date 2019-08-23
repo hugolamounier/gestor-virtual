@@ -14,6 +14,18 @@ public class User {
         this.gender = gender;
     }
 
+    public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", birth='" + birth + '\'' +
+                '}';
+    }
+
     public String getEmail() {
         return email;
     }
